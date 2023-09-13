@@ -5,16 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".SubActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonYes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Main"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="YES"
+        app:layout_constraintBottom_toTopOf="@id/buttonNo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonYes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

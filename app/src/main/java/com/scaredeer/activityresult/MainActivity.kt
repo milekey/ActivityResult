@@ -1,38 +1,47 @@
-package com.scaredeer.activityresult;
+package com.scaredeer.activityresult
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import com.scaredeer.activityresult.databinding.ActivityMainBinding
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
+class MainActivity : AppCompatActivity() {
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+    private val activityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        when (result.resultCode) {
+            RESULT_OK -> {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Result from SubActivity: OK",
+                    BaseTransientBottomBar.LENGTH_LONG
+                ).show()
+            }
+            RESULT_CANCELED -> {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Result from SubActivity: CANCELED",
+                    BaseTransientBottomBar.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
-public class MainActivity extends AppCompatActivity {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setContentView(R.layout.activity_main);
-
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Snackbar.make(
-                                findViewById(android.R.id.content),
-                                "Result OK",
-                                BaseTransientBottomBar.LENGTH_LONG
-                        ).show();
-                    }
-                });
-
-        findViewById(R.id.button).setOnClickListener(view ->
-                activityResultLauncher.launch(new Intent(this, SecondActivity.class))
-        );
+        binding.button.setOnClickListener {
+            activityResultLauncher.launch(
+                Intent(this, SubActivity::class.java)
+            )
+        }
     }
 }

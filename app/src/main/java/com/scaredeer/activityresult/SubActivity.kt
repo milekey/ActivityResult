@@ -1,18 +1,24 @@
-package com.scaredeer.activityresult;
+package com.scaredeer.activityresult
 
-import android.os.Bundle;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.scaredeer.activityresult.databinding.ActivitySubBinding
 
-import androidx.appcompat.app.AppCompatActivity;
+class SubActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class SecondActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        val binding = ActivitySubBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setResult(RESULT_OK);
-
-        setContentView(R.layout.activity_second);
-        findViewById(R.id.button).setOnClickListener(view -> finish());
+        binding.buttonYes.setOnClickListener {
+            setResult(RESULT_OK)
+            finish()
+        }
+        binding.buttonNo.setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish()
+        }
     }
 }
