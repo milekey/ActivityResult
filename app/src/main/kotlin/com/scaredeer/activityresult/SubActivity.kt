@@ -8,7 +8,6 @@ class SubActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val binding = ActivitySubBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
